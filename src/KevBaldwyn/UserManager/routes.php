@@ -1,3 +1,7 @@
 <?php
 
-Route::resource('groups', 'Kevbaldwyn\UserManager\Controllers\GroupsController');
+Route::group(array('prefix' => 'admin'), function() {
+
+	Route::resource('groups', 'Kevbaldwyn\UserManager\Controllers\GroupsController');
+
+});
