@@ -1,4 +1,4 @@
-@extends('groups.edit')
+@extends($model->getScaffoldRoute('edit'))
 
 @section('form')
 
