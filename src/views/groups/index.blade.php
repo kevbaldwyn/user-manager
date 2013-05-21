@@ -1,4 +1,4 @@
-@extends('groups.index')
+@extends($model->getScaffoldRoute('index'))
 
 @section('list_html')
 
