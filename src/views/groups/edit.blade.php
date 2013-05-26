@@ -4,6 +4,23 @@
 
 <p>And this is the content from the user-manager package</p>
 
-{{ $form }}
+{{ Form::model($model, ['method' => 'put', 'route' => [$model->getScaffoldRoute('update'), $model->id]]) }}
+	
+	<?php 
+
+	$schema = new KevBaldwyn\Avid\Schema\Table($model);
+	
+	echo $schema->form($ignore, array('customAttributes' => $model->getCustomAttributes()));
+	
+	// permissions fields
+	echo KevBaldwyn\SentryAuth\SentryPermissionsHelper::permissionsMatrix($model->permissions);
+
+	?>
+	
+	{{ Form::token() }}
+	
+	{{ Form::submit('Save') }}
+	
+{{ Form::close() }}
 
 @stop
