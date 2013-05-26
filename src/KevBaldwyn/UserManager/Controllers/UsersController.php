@@ -1,4 +1,4 @@
-<?php namespace Kevbaldwyn\UserManager\Controllers;
+<?php namespace KevBaldwyn\UserManager\Controllers;
 
 class UsersController extends \KevBaldwyn\Avid\Controller {
 	

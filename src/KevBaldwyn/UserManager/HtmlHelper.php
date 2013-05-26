@@ -1,4 +1,4 @@
-<?php namespace Kevbaldwyn\UserManager;
+<?php namespace KevBaldwyn\UserManager;
 
 use Config;
 use Form;

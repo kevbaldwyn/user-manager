@@ -1,4 +1,4 @@
-<?php namespace Kevbaldwyn\UserManager\Controllers;
+<?php namespace KevBaldwyn\UserManager\Controllers;
 
 use Config;
 use View;
