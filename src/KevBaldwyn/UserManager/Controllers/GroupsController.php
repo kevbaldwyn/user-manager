@@ -1,6 +1,7 @@
 <?php namespace Kevbaldwyn\UserManager\Controllers;
 
 use Config;
+use View;
 use KevBaldwyn\Avid\Model;
 use Illuminate\Support\Contracts\MessageProviderInterface;
 
@@ -14,8 +15,18 @@ class GroupsController extends \KevBaldwyn\Avid\Controller {
 		$this->setViewPath('user-manager::groups');
 	}
 
+
 	public static function model() {
 		return Model::make(Config::get('cartalyst/sentry::groups.model'));
+	}
+	
+	
+	public function index() {
+		
+		$model = static::model();
+		
+		return View::make($this->viewPath . '.index', array('model' => $model,
+															'list'  => $model->all()));
 	}
 	
 }
