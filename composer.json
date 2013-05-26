@@ -24,7 +24,7 @@
             "src/migrations"
         ],
         "psr-0": {
-            "Kevbaldwyn\\UserManager": "src/"
+            "KevBaldwyn\\UserManager": "src/"
         }
     },
     "minimum-stability": "dev"
