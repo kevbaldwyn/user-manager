@@ -13,7 +13,7 @@
 	echo $schema->form($ignore, array('customAttributes' => $model->getCustomAttributes()));
 	
 	// permissions fields
-	echo KevBaldwyn\SentryAuth\SentryPermissionsHelper::permissionsMatrix($model->permissions);
+	echo KevBaldwyn\UserManager\HtmlHelper::permissionsMatrix($model->permissions);
 
 	?>
 	
