@@ -30,6 +30,16 @@ class GroupsController extends \KevBaldwyn\Avid\Controller {
 	}
 	
 
+	public function create() {
+		
+		$model = static::model();
+		
+		return View::make($this->viewPath . '.create', array('model' => $model,
+															 'ignore' => $model->getNotEditable()));
+		
+	}
+	
+
 	public function edit($id) {
 
 		$model = static::model()->find($id);

@@ -4,6 +4,23 @@
 
 <p>And this is the content from the user-manager package</p>
 
-{{ $form }}
+{{ Form::model($model, ['method' => 'post', 'route' => [$model->getScaffoldRoute('store')]]) }}
+	
+	<?php 
+	
+	$schema = new KevBaldwyn\Avid\Schema\Table($model);
+	
+	echo $schema->form($ignore, array('customAttributes' => $model->getCustomAttributes()));
+	
+	// permissions fields
+	echo KevBaldwyn\UserManager\HtmlHelper::permissionsMatrix();
+	
+	?>
+	
+	{{ Form::token() }}
+	
+	{{ Form::submit('Create') }}
+
+{{ Form::close() }}
 
 @stop
