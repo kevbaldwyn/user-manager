@@ -6,6 +6,10 @@ Route::group(array('prefix' => \Config::get('avid::admin.route_prefix')), functi
 										   'as'   => App::make('Group')->getScaffoldRoute('delete')))
 				->where('id', '[0-9]+');
 
+	Route::any('groups/{id}/manage-users', array('uses' => 'KevBaldwyn\UserManager\Controllers\GroupsController@manageUsers',
+												 'as'   => App::make('Group')->getScaffoldRoute('manage-users')))
+				->where('id', '[0-9]+');
+
 	Route::resource('groups', 'KevBaldwyn\UserManager\Controllers\GroupsController');
 
 });

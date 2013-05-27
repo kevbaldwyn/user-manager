@@ -17,7 +17,7 @@
     	<tr>
     		<td><a href="{{ URL::route($model->getScaffoldRoute('edit'), array($item->id)) }}">{{ $item->name }}</a></td>
     		<td><a href="{{ URL::route($model->getScaffoldRoute('delete'), array($item->id)) }}">Delete</a></td>
-    		<td>Add users</td>
+    		<td><a href="{{ URL::route($model->getScaffoldRoute('manage-users'), array($item->id)) }}">Manage users</a></td>
     	</tr>
 	</tbody>
 @endforeach
