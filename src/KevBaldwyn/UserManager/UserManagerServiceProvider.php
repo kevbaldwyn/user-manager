@@ -49,9 +49,11 @@ class UserManagerServiceProvider extends ServiceProvider {
 
 	private function registerModelEvents() {
 		
+		// create a saving event for whatever the group model class is
 		$model = '\\' . \Config::get('cartalyst/sentry::groups.model');
 		$model::saving(function($group) {
 
+			// only try and update the permissions if it has been specified
 			if($group->permissions_array_expected) {
 				$perms = array();
 				if(is_array($group->permissions_array)) {
@@ -62,6 +64,7 @@ class UserManagerServiceProvider extends ServiceProvider {
 					unset($group->permissions_array);
 				}
 
+				// unset everything before specifying new permissions
 				unset($group->permissions_array_expected);
 				unset($group->permissions);
 
