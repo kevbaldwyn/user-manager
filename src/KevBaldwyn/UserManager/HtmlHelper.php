@@ -20,7 +20,7 @@ class HtmlHelper {
 				}else{
 					$permKey = ($passedRootKey == '') ? $var : $passedRootKey . '.' . $var;
 
-					$str .= Form::checkbox($permKey, 1, ((array_key_exists($permKey, $perms) && $perms[$permKey] == 1) ? 1 : 0));
+					$str .= Form::checkbox('permissions_array[' . str_replace('.', ':' , $permKey) . ']', 1, ((array_key_exists($permKey, $perms) && $perms[$permKey] == 1) ? 1 : 0));
 					$str .= Form::label($permKey, $var);
 				}
 
@@ -30,7 +30,9 @@ class HtmlHelper {
 
 		}
 
-		return recurse(Config::get('sentry-auth::permissions'), $permissions);
+		$str = Form::hidden('permissions_array_expected', true);
+		$str .= recurse(Config::get('sentry-auth::permissions'), $permissions);
+		return $str;
 
 	}
 

@@ -20,7 +20,10 @@ class UserManagerServiceProvider extends ServiceProvider {
 	{
 		$this->package('kevbaldwyn/user-manager');
 		
+		$this->registerModelEvents();
+
 		include(__DIR__.'/routes.php');
+
 	}
 
 	/**
@@ -30,7 +33,7 @@ class UserManagerServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+
 	}
 
 	/**
@@ -41,6 +44,33 @@ class UserManagerServiceProvider extends ServiceProvider {
 	public function provides()
 	{
 		return array();
+	}
+
+
+	private function registerModelEvents() {
+		
+		$model = '\\' . \Config::get('cartalyst/sentry::groups.model');
+		$model::saving(function($group) {
+
+			if($group->permissions_array_expected) {
+				$perms = array();
+				if(is_array($group->permissions_array)) {
+					foreach($group->permissions_array as $key => $value) {
+						$k = str_replace(':', '.', $key);
+						$perms[$k] = $value;
+					}
+					unset($group->permissions_array);
+				}
+
+				unset($group->permissions_array_expected);
+				unset($group->permissions);
+
+				$group->permissions = $perms;
+
+			}
+			
+		});
+
 	}
 
 }
