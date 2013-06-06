@@ -12,7 +12,8 @@ class User extends \KevBaldwyn\SentryAuth\Models\User {
 	public function __construct(array $attributes = array()) {
 		parent::__construct($attributes);
 		
-		$this->_InitModelScaffolding(array('nameField' => 'email'));
+		$this->_InitModelScaffolding(array('notEditable'     => array('permissions', 'password'),
+										   'nameField'       => 'email'));
 	}	
 
 }

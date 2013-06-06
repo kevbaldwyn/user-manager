@@ -32,6 +32,26 @@ class UsersController extends \KevBaldwyn\Avid\Controller {
 															'list'  => $model->all()));
 	}
 	
+
+	public function create() {
+		
+		$model = static::model();
+		
+		return View::make($this->viewPath . '.create', array('model' => $model,
+															 'ignore' => $model->getNotEditable()));
+		
+	}
+	
+
+	public function edit($id) {
+
+		$model = static::model()->find($id);
+		
+		return View::make($this->viewPath . '.edit', array('model' => $model,
+														   'ignore' => $model->getNotEditable()));
+		
+	}
+	
 	
 	
 }
