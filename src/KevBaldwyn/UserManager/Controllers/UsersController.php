@@ -1,6 +1,10 @@
 <?php namespace KevBaldwyn\UserManager\Controllers;
 
 use Config;
+use View;
+use Request;
+use Redirect;
+use Input;
 use KevBaldwyn\Avid\Model;
 use Illuminate\Support\Contracts\MessageProviderInterface;
 
@@ -17,6 +21,15 @@ class UsersController extends \KevBaldwyn\Avid\Controller {
 
 	public static function model() {
 		return Model::make(Config::get('cartalyst/sentry::users.model'));
+	}
+	
+	
+	public function index() {
+		
+		$model = static::model();
+		
+		return View::make($this->viewPath . '.index', array('model' => $model,
+															'list'  => $model->all()));
 	}
 	
 	
