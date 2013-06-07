@@ -1,5 +1,8 @@
 <?php namespace KevBaldwyn\UserManager\Observers;
 
+/**
+ * An observer for correctly updating permissions on a model
+ */
 class PermissionsObserver {
 
 	public function saving($model) {
