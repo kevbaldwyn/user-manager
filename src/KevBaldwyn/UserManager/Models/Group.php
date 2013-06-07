@@ -19,7 +19,7 @@ class Group extends \KevBaldwyn\SentryAuth\Models\Group {
 	public function save(array $options = array()) {
 		try {
 			return parent::save($options);
-		}catch(\Cartalyst\Sentry\Groups\NameRequiredException $e) {
+		}catch(\Exception $e) {
 			// a validation object to store some errors in
 			$messages = new MessageBag();
 
