@@ -16,36 +16,6 @@ class Group extends \KevBaldwyn\SentryAuth\Models\Group {
 	}	
 
 
-	public static function boot() {
-
-		static::saving(function($group) {
-
-			// only try and update the permissions if it has been specified
-			if($group->permissions_array_expected) {
-				$perms = array();
-				if(is_array($group->permissions_array)) {
-					foreach($group->permissions_array as $key => $value) {
-						$k = str_replace(':', '.', $key);
-						$perms[$k] = $value;
-					}
-					unset($group->permissions_array);
-				}
-
-				// unset everything before specifying new permissions
-				unset($group->permissions_array_expected);
-				unset($group->permissions);
-
-				$group->permissions = $perms;
-
-			}
-			
-		});
-		
-		parent::boot();
-
-	}
-
-
 	public function save(array $options = array()) {
 		try {
 			return parent::save($options);

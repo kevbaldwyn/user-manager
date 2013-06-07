@@ -20,6 +20,9 @@ class UserManagerServiceProvider extends ServiceProvider {
 	{
 		$this->package('kevbaldwyn/user-manager');
 
+		//User::observe(new UserObserver);
+		\Group::observe(new Observers\PermissionsObserver);
+
 		include(__DIR__.'/routes.php');
 
 	}
