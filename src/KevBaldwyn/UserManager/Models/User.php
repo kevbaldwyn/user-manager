@@ -12,7 +12,7 @@ class User extends \KevBaldwyn\SentryAuth\Models\User {
 	public function __construct(array $attributes = array()) {
 		parent::__construct($attributes);
 		
-		$this->_InitModelScaffolding(array('notEditable'     => array('permissions', 'activated_at', 'last_login', 'password'),
+		$this->_InitModelScaffolding(array('notEditable'     => array('permissions', 'activated_at', 'last_login'),
 										   'nameField'       => 'email'));
 	}	
 
@@ -30,5 +30,5 @@ class User extends \KevBaldwyn\SentryAuth\Models\User {
 			return false;
 		}
 	}
-	
+
 }

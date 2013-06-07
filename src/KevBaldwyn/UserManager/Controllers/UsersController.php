@@ -46,9 +46,12 @@ class UsersController extends \KevBaldwyn\Avid\Controller {
 	public function edit($id) {
 
 		$model = static::model()->find($id);
+
+		$ignore = $model->getNotEditable();
+		array_push($ignore, 'password');
 		
 		return View::make($this->viewPath . '.edit', array('model' => $model,
-														   'ignore' => $model->getNotEditable()));
+														   'ignore' => $ignore));
 		
 	}
 	
