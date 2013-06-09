@@ -28,3 +28,4 @@
 	</div>
 
 {{ Form::close() }}
+<a href="{{ URL::route('users.reset-password') }}" class="forgotten-password">Forgotten Password</a>
