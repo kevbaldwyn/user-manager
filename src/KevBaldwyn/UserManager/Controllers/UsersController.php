@@ -79,34 +79,23 @@ class UsersController extends \KevBaldwyn\Avid\Controller {
 					}else{
 
 						if($user->activated) {
-							$this->messages->add('error', Config::get('user-manager::messages.error.login-password'));
 							$validator->messages()->add('password', Config::get('user-manager::messages.error.login-password'));
 						}else{
-							$this->messages->add('error', Config::get('user-manager::messages.error.bad-combo'));
 							$validator->messages()->add('password', Config::get('user-manager::messages.error.bad-combo'));
 						}
 					}
 
 				}catch(\Exception $e) {
-					
+
 					if($e instanceof \Cartalyst\Sentry\Users\WrongPasswordException) {
-							$this->messages->add('error', Config::get('user-manager::messages.error.login-password'));
-							$validator->messages()->add('password', Config::get('user-manager::messages.error.login-password'));
+						$validator->messages()->add('password', Config::get('user-manager::messages.error.login-password'));
 					}else{
-						$this->messages->add('error', $e->getMessage());
-						$validator->messages()->add('password', $e->getMessage());
+						$validator->messages()->add('email', $e->getMessage());
 					}
 
-					
 				}	
 
-			}else{
-				foreach($validator->messages()->all() as $error) {
-					$this->messages->add('error', $error);
-				}
 			}
-
-			$this->messages->flash();
 
 			return Redirect::back()->withInput(Input::except('password'))->withErrors($validator);
 
