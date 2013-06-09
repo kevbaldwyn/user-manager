@@ -1,10 +1,6 @@
 <?php namespace KevBaldwyn\UserManager\Controllers;
 
-use Config;
-use View;
-use Request;
-use Redirect;
-use Input;
+use Config, View, Request, Redirect, Input, Auth, Validator;
 use KevBaldwyn\Avid\Model;
 use Illuminate\Support\Contracts\MessageProviderInterface;
 
@@ -53,6 +49,64 @@ class UsersController extends \KevBaldwyn\Avid\Controller {
 		return View::make($this->viewPath . '.edit', array('model' => $model,
 														   'ignore' => $ignore));
 		
+	}
+
+
+	public function login() {
+
+		if(Input::getMethod() == 'POST') {
+			$validator = Validator::make(Input::all(),
+				array('email' => 'email|required'),
+				array('password' => 'required')
+			);
+
+			$remember = (Input::has('remember')) ? Input::get('remember') : false;
+
+			if($validator->passes()) {
+
+				try {
+
+					$user = static::model()->findByLogin(Input::get('email'));
+
+					if(Auth::attempt(array('email'     => Input::get('email'),
+										   'password'  => Input::get('password'),
+										   'activated' => 1),
+									$remember
+									)) {
+
+						return Redirect::intended(Config::get('user-manager::redirect.on-login'));
+
+					}else{
+
+						if($user->activated) {
+							$this->messages->add('error', Config::get('user-manager::messages.error.login-password'));
+							$validator->messages()->add('password', Config::get('user-manager::messages.error.login-password'));
+						}else{
+							$this->messages->add('error', Config::get('user-manager::messages.error.bad-combo'));
+							$validator->messages()->add('password', Config::get('user-manager::messages.error.bad-combo'));
+						}
+					}
+
+				}catch(\Exception $e) {
+
+					$this->messages->add('error', $e->getMessage());
+					$validator->messages()->add('password', $e->getMessage());
+					
+				}	
+
+			}else{
+				foreach($validator->messages()->all() as $error) {
+					$this->messages->add('error', $error);
+				}
+			}
+
+			$this->messages->flash();
+
+			return Redirect::back()->withInput(Input::except('password'))->withErrors($validator);
+
+		}
+
+		return View::make($this->viewPath . '.login');
 	}
 
 
