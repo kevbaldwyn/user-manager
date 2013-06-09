@@ -37,6 +37,7 @@ return array(
 
 		'success' => array('request-password-reset' => 'Your password reset request has been sent',
 						   'password-reset'         => 'Your password has been reset',
+						   'logged-in'              => 'You have been logged in',
 						   'logged-out'             => 'You have been logged out')
 	)
 

@@ -74,6 +74,10 @@ class UsersController extends \KevBaldwyn\Avid\Controller {
 									$remember
 									)) {
 
+
+						$this->messages->add('success', Config::get('user-manager::messages.success.logged-in'))
+									   ->flash();
+
 						return Redirect::intended(Config::get('user-manager::redirect.on-login'));
 
 					}else{
