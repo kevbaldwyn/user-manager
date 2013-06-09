@@ -110,6 +110,11 @@ class UsersController extends \KevBaldwyn\Avid\Controller {
 		$user = static::model()->find($id);
 		
 		$user->sendResetPasswordEmail();
+
+		$this->messages->add('success', Config::get('user-manager::messages.success.request-password-reset'))
+					   ->flash();
+
+		return Redirect::back();
 	}
 
 
