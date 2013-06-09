@@ -10,7 +10,7 @@
 		</div>
 	</div>
 
-	<div class="control-group {{ Form::errorCSS('Password') }}">
+	<div class="control-group {{ Form::errorCSS('password') }}">
 		{{ Form::label('password', 'Password', ['class' => 'control-label']) }}
 		<div class="controls">
 			{{ Form::password('password') }}
