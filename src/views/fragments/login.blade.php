@@ -2,7 +2,7 @@
 
 	{{ Form::token() }}
 
-	<div class="control-group">
+	<div class="control-group {{ Form::errorCSS('email') }}">
 		{{ Form::label('email', 'Email address', ['class' => 'control-label']) }}
 		<div class="controls">
 			{{ Form::text('email', Input::get('email')) }}
@@ -10,7 +10,7 @@
 		</div>
 	</div>
 
-	<div class="control-group">
+	<div class="control-group {{ Form::errorCSS('Password') }}">
 		{{ Form::label('password', 'Password', ['class' => 'control-label']) }}
 		<div class="controls">
 			{{ Form::password('password') }}
