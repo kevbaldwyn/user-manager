@@ -28,7 +28,11 @@ Route::group(array('prefix' => \Config::get('avid::admin.route_prefix')), functi
 
 Route::get('users/reset-password', array('uses' => 'KevBaldwyn\UserManager\Controllers\UsersController@getResetPassword',
 										 		'as'   => 'users.reset-password'));
+
 Route::post('users/reset-password', 'KevBaldwyn\UserManager\Controllers\UsersController@postResetPassword');
 
 Route::any('login', array('uses' => 'KevBaldwyn\UserManager\Controllers\UsersController@login',
 						  'as'   => 'login'));
+
+Route::get('logout', array('uses' => 'KevBaldwyn\UserManager\Controllers\UsersController@logout',
+						   'as'   => 'logout'));

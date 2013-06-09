@@ -105,6 +105,16 @@ class UsersController extends \KevBaldwyn\Avid\Controller {
 	}
 
 
+	public function logout() {
+		Auth::logout();
+
+		$this->messages->add('success', Config::get('user-manager::messages.success.logged-out'))
+					   ->flash();
+
+		return Redirect::to(Config::get('user-manager::redirect.on-logout'));
+	}
+
+
 	public function resetPasswordAdmin($id) {
 
 		$user = static::model()->find($id);

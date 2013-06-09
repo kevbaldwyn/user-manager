@@ -23,7 +23,8 @@ return array(
 
 	'redirect' => array(
 		'on-password-reset' => '/',
-		'on-login'          => '/'
+		'on-login'          => '/',
+		'on-logout'         => '/'
 	),
 
 	'messages' => array(
@@ -35,7 +36,8 @@ return array(
 						   'bad-combo'      => 'Incorrect email address and password combination'),
 
 		'success' => array('request-password-reset' => 'Your password reset request has been sent',
-						   'password-reset'         => 'Your password has been reset')
+						   'password-reset'         => 'Your password has been reset',
+						   'logged-out'             => 'You have been logged out')
 	)
 
 );
