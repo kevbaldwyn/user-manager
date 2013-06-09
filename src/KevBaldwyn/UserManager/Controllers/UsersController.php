@@ -88,9 +88,15 @@ class UsersController extends \KevBaldwyn\Avid\Controller {
 					}
 
 				}catch(\Exception $e) {
+					
+					if($e instanceof \Cartalyst\Sentry\Users\WrongPasswordException) {
+							$this->messages->add('error', Config::get('user-manager::messages.error.login-password'));
+							$validator->messages()->add('password', Config::get('user-manager::messages.error.login-password'));
+					}else{
+						$this->messages->add('error', $e->getMessage());
+						$validator->messages()->add('password', $e->getMessage());
+					}
 
-					$this->messages->add('error', $e->getMessage());
-					$validator->messages()->add('password', $e->getMessage());
 					
 				}	
 
