@@ -6,9 +6,7 @@
 		{{ Form::label('email', 'Email address', ['class' => 'control-label']) }}
 		<div class="controls">
 			{{ Form::text('email', Input::get('email')) }}
-			@if(Session::has('errors') && Session::get('errors')->has('email'))
-			{{ '<span class="help-inline"><ul>' . implode('', Session::get('errors')->get('email', '<li>:message</li>'))  . '</ul></span>' }}
-			@endif
+			{{ Form::errorField('email') }}
 		</div>
 	</div>
 
@@ -16,9 +14,7 @@
 		{{ Form::label('password', 'Password', ['class' => 'control-label']) }}
 		<div class="controls">
 			{{ Form::password('password') }}
-			@if(Session::has('errors') && Session::get('errors')->has('password'))
-			{{ '<span class="help-inline"><ul>' . implode('', Session::get('errors')->get('password', '<li>:message</li>'))  . '</ul></span>' }}
-			@endif
+			{{ Form::errorField('password') }}
 		</div>
 	</div>
 
