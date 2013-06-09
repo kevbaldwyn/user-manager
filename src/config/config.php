@@ -17,12 +17,21 @@ return array(
 
 		'template' => array(
 			'reset-password' => 'user-manager::emails.reset-password'
-		),
-
-		'redirect' => array(
-			'on-password-reset' => '/'
 		)
 	
+	),
+
+	'redirect' => array(
+		'on-password-reset' => '/'
+	),
+
+	'messages' => array(
+		'error'   => array('invalid-password-reset-token' => 'The password reset token is invalid',
+						   'password-reset'               => 'Unable to reset password',
+						   'password'                     => 'Please specify a password'),
+
+		'success' => array('request-password-reset' => 'Your password reset request has been sent',
+						   'password-reset'         => 'Your password has been reset')
 	)
 
 );

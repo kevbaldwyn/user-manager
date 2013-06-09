@@ -94,7 +94,7 @@ class UsersController extends \KevBaldwyn\Avid\Controller {
 			if(Input::has('token')) {
 
 				if(!Input::has('password') || trim(Input::get('password')) == "") {
-					throw new \Exception('Please specify a password');
+					throw new \Exception(Config::get('user-manager::messages.error.password'));
 				}
 
 				// Check if the reset password code is valid
@@ -103,25 +103,25 @@ class UsersController extends \KevBaldwyn\Avid\Controller {
 					// Attempt to reset the user password
 			        if ($user->attemptResetPassword(Input::get('token'), Input::get('password'))) {
 						// Password reset passed
-						$this->messages->add('success', 'Your password has been reset')
+						$this->messages->add('success', Config::get('user-manager::messages.success.password-reset'))
 									   ->flash();
 
 						return Redirect::to(Config::get('user-manager::redirect.on-password-reset'));
 			        }else{
 						// Password reset failed
-						throw new \Exception('Unable to reset password');
+						throw new \Exception(Config::get('user-manager::messages.error.password-reset'));
 			        }
 			    }else{
 					// The provided password reset code is Invalid
-					throw new \Exception('The password reset token is invalid');
+					throw new \Exception(Config::get('user-manager::messages.error.invalid-password-reset-token'));
 			    }
 			
 			}else{		
-
+				
 				// requesting reset		
 				$user->sendResetPasswordEmail();
 
-				$this->messages->add('success', 'Your password reset request has been sent')
+				$this->messages->add('success', Config::get('user-manager::messages.success.request-password-reset'))
 							   ->flash();
 
 				return Redirect::back();
