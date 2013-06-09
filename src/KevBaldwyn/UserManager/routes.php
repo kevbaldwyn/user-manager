@@ -19,6 +19,13 @@ Route::group(array('prefix' => \Config::get('avid::admin.route_prefix')), functi
 										   'as'   => App::make('User')->getScaffoldRoute('delete')))
 				->where('id', '[0-9]+');
 
+	Route::get('users/{id}/reset-password', array('uses' => 'KevBaldwyn\UserManager\Controllers\UsersController@resetPasswordAdmin',
+												  'as'   => App::make('User')->getScaffoldRoute('resetPassword')));
+
 	Route::resource('users', 'KevBaldwyn\UserManager\Controllers\UsersController');
 
 });
+
+Route::get('users/reset-password', array('uses' => 'KevBaldwyn\UserManager\Controllers\UsersController@getResetPassword',
+										 		'as'   => 'users.reset-password'));
+Route::post('users/reset-password', 'KevBaldwyn\UserManager\Controllers\UsersController@postResetPassword');

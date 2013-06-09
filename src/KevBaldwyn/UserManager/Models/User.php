@@ -1,5 +1,7 @@
 <?php namespace KevBaldwyn\UserManager\Models;
 
+use Config;
+use Mail;
 use Illuminate\Support\MessageBag;
 
 class User extends \KevBaldwyn\SentryAuth\Models\User {
@@ -16,6 +18,7 @@ class User extends \KevBaldwyn\SentryAuth\Models\User {
 										   'nameField'       => 'email'));
 	}	
 
+
 	public function save(array $options = array()) {
 		try {
 			return parent::save($options);
@@ -29,6 +32,29 @@ class User extends \KevBaldwyn\SentryAuth\Models\User {
 
 			return false;
 		}
+	}
+
+
+	public function sendResetPasswordEmail() {
+
+		$resetCode = $this->getResetPasswordCode();
+		
+		$data = array('reset_code' => $resetCode,
+					  'first_name' => $this->first_name,
+					  'last_name'  => $this->last_name);
+
+		Mail::send(Config::get('user-manager::mail.template.reset-password'), $data, function($message) {
+			if(Config::get('user-manager::mail.from') == 'default') {
+				$from = Config::get('mail.from');
+			}else{
+				$from = Config::get('user-manager::mail.from');
+			}
+
+		    $message->from($from['address'], $from['name']);
+		    $message->to($this->email)->subject(Config::get('user-manager::mail.subject.password-reset'));
+
+		});
+
 	}
 
 }
