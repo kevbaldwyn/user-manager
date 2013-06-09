@@ -6,7 +6,7 @@
 		{{ Form::label('email', 'Email address', ['class' => 'control-label']) }}
 		<div class="controls">
 			{{ Form::text('email', Input::get('email')) }}
-			{{ Form::errorField('email') }}
+			{{ Form::error('email') }}
 		</div>
 	</div>
 
@@ -14,7 +14,7 @@
 		{{ Form::label('password', 'Password', ['class' => 'control-label']) }}
 		<div class="controls">
 			{{ Form::password('password') }}
-			{{ Form::errorField('password') }}
+			{{ Form::error('password') }}
 		</div>
 	</div>
 
