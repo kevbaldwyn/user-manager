@@ -10,12 +10,14 @@
 			<th>Name</th>
 			<th></th>
 			<th></th>
+			<th></th>
 		</tr>
 	</thead>
 @foreach ($list as $item)
 	<tbody>
     	<tr>
     		<td><a href="{{ URL::route($model->getScaffoldRoute('edit'), array($item->id)) }}">{{ $item->email }}</a></td>
+    		<td><a href="{{ URL::route($model->getScaffoldRoute('manage-groups'), array($item->id)) }}">Manage Groups</a></td>
     		<td><a href="{{ URL::route($model->getScaffoldRoute('delete'), array($item->id)) }}">Delete</a></td>
     		<td><a href="{{ URL::route($model->getScaffoldRoute('resetPassword'), array($item->id)) }}">Reset Password</a></td>
     	</tr>

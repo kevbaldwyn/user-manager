@@ -24,6 +24,9 @@ Route::group(array('prefix' => \Config::get('avid::admin.route_prefix')), functi
 
 	Route::resource('users', 'KevBaldwyn\UserManager\Controllers\UsersController');
 
+	Route::any('users/{id}/manage-groups', array('uses' => 'KevBaldwyn\UserManager\Controllers\UsersController@manageGroups',
+												 'as'   => App::make('User')->getScaffoldRoute('manage-groups')))
+				->where('id', '[0-9]+');
 });
 
 Route::get('users/reset-password', array('uses' => 'KevBaldwyn\UserManager\Controllers\UsersController@getResetPassword',

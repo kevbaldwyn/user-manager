@@ -3,6 +3,7 @@
 use Config, View, Request, Redirect, Input, Auth, Validator;
 use KevBaldwyn\Avid\Model;
 use Illuminate\Support\Contracts\MessageProviderInterface;
+use Illuminate\Database\Eloquent\Collection;
 
 class UsersController extends \KevBaldwyn\Avid\Controller {
 	
@@ -49,6 +50,41 @@ class UsersController extends \KevBaldwyn\Avid\Controller {
 		return View::make($this->viewPath . '.edit', array('model' => $model,
 														   'ignore' => $ignore));
 		
+	}
+
+
+	public function manageGroups($id) {
+
+		$user      = static::model()->find($id);
+		$groups    = $user->getGroups();
+		$allGroups = Model::make(Config::get('cartalyst/sentry::groups.model'))->all();
+
+		if(Request::getMethod() == 'PUT') {
+
+			// remove user from all groups
+			foreach($allGroups as $group) {
+				$user->removeGroup($group);
+			}
+
+			// add in user to correct groups
+			if(count(Input::get('group')) > 0) {
+				foreach(Input::get('group') as $groupId => $true) {
+					// for some reason it needs a new instance?!
+					static::model()->find($id)
+								   ->addGroup($allGroups->find($groupId));
+				}
+			}
+
+			$this->messages->add('success', 'The users groups have been updated.')
+						   ->flash();
+						   
+			return Redirect::route(static::model()->getScaffoldRoute('index'));
+
+		}
+
+		return View::make($this->viewPath . '.manage-groups', array('model'     => $user,
+														   		    'groups'    => $groups,
+														   		    'allGroups' => $allGroups));
 	}
 
 
