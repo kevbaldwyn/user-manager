@@ -70,8 +70,10 @@ class GroupsController extends \KevBaldwyn\Avid\Controller {
 
 			// add in correct users to this group
 			if(count(Input::get('user')) > 0) {
-				foreach(Input::get('user') as $userId) {
-					$allUsers->find($userId)->addGroup($model);
+				foreach(Input::get('user') as $userId => $true) {
+					// needs a new instance!?
+					Model::make(Config::get('cartalyst/sentry::users.model'))->find($userId)
+																			 ->addGroup($model);
 				}
 			}
 
