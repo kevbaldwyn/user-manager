@@ -168,6 +168,57 @@ class UsersController extends \KevBaldwyn\Avid\Controller {
 	}
 
 
+	public function sendActivationAdmin($id) {
+
+		$user = static::model()->find($id);
+		
+		$user->sendActivationEmail();
+
+		$this->messages->add('success', Config::get('user-manager::messages.success.admin-send-activation'))
+					   ->flash();
+
+		return Redirect::back();
+	}
+
+
+	public function activate() {
+		if(Input::has('token')) {
+			
+			try	{
+
+			    $user = static::model()->findByActivationCode(Input::get('token'));
+
+			    // Attempt to activate the user
+			    if ($user->attemptActivation(Input::get('token'))) {
+
+					$this->messages->add('success', Config::get('user-manager::messages.success.activation'))
+								   ->flash();
+
+					return Redirect::to(Config::get('user-manager::redirect.on-activation'));
+
+			    }else{
+					throw new \Exception(Config::get('user-manager::messages.error.activation-failed'));
+			    }
+
+			}catch (\Exception $e) {
+
+				$this->messages->add('error', $e->getMessage())
+							   ->flash();
+			        
+				return Redirect::to(Config::get('user-manager::redirect.on-activation-error'));
+
+			}
+
+		}
+
+		$this->messages->add('error', Config::get('user-manager::messages.error.activation-notoken'))
+					   ->flash();
+
+		return Redirect::to(Config::get('user-manager::redirect.on-activation-error'));
+
+	}
+
+
 	/**
 	 * Render the form for either a reset request or the actual reset action
 	 * @return View the form

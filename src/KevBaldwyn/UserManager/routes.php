@@ -22,6 +22,9 @@ Route::group(array('prefix' => \Config::get('avid::admin.route_prefix')), functi
 	Route::get('users/{id}/reset-password', array('uses' => 'KevBaldwyn\UserManager\Controllers\UsersController@resetPasswordAdmin',
 												  'as'   => App::make('User')->getScaffoldRoute('resetPassword')));
 
+	Route::get('users/{id}/send-activation', array('uses' => 'KevBaldwyn\UserManager\Controllers\UsersController@sendActivationAdmin',
+												   'as'   => App::make('User')->getScaffoldRoute('send-activation')));
+
 	Route::resource('users', 'KevBaldwyn\UserManager\Controllers\UsersController');
 
 	Route::any('users/{id}/manage-groups', array('uses' => 'KevBaldwyn\UserManager\Controllers\UsersController@manageGroups',
@@ -30,9 +33,12 @@ Route::group(array('prefix' => \Config::get('avid::admin.route_prefix')), functi
 });
 
 Route::get('users/reset-password', array('uses' => 'KevBaldwyn\UserManager\Controllers\UsersController@getResetPassword',
-										 		'as'   => 'users.reset-password'));
+										 'as'   => 'users.reset-password'));
 
 Route::post('users/reset-password', 'KevBaldwyn\UserManager\Controllers\UsersController@postResetPassword');
+
+Route::get('users/activate', array('uses' => 'KevBaldwyn\UserManager\Controllers\UsersController@activate',
+								   'as'   => 'users.activate'));
 
 Route::any('login', array('uses' => 'KevBaldwyn\UserManager\Controllers\UsersController@login',
 						  'as'   => 'login'));

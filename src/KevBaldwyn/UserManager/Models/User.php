@@ -57,4 +57,26 @@ class User extends \KevBaldwyn\SentryAuth\Models\User {
 
 	}
 
+
+	public function sendActivationEmail() {
+		$activationCode = $this->getActivationCode();
+		
+		$data = array('activation_code' => $activationCode,
+					  'first_name'      => $this->first_name,
+					  'last_name'       => $this->last_name);
+
+		Mail::send(Config::get('user-manager::mail.template.activation'), $data, function($message) {
+			if(Config::get('user-manager::mail.from') == 'default') {
+				$from = Config::get('mail.from');
+			}else{
+				$from = Config::get('user-manager::mail.from');
+			}
+
+		    $message->from($from['address'], $from['name']);
+		    $message->to($this->email)->subject(Config::get('user-manager::mail.subject.activaton'));
+
+		});
+
+	}
+
 }

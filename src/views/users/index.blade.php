@@ -11,6 +11,7 @@
 			<th></th>
 			<th></th>
 			<th></th>
+			<th></th>
 		</tr>
 	</thead>
 @foreach ($list as $item)
@@ -20,6 +21,7 @@
     		<td><a href="{{ URL::route($model->getScaffoldRoute('manage-groups'), array($item->id)) }}">Manage Groups</a></td>
     		<td><a href="{{ URL::route($model->getScaffoldRoute('delete'), array($item->id)) }}">Delete</a></td>
     		<td><a href="{{ URL::route($model->getScaffoldRoute('resetPassword'), array($item->id)) }}">Reset Password</a></td>
+    		<td><a href="{{ URL::route($model->getScaffoldRoute('send-activation'), array($item->id)) }}">Send Activation Email</a></td>
     	</tr>
 	</tbody>
 @endforeach
