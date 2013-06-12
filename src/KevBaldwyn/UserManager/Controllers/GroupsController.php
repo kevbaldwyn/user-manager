@@ -15,6 +15,8 @@ class GroupsController extends \KevBaldwyn\Avid\Controller {
 	public function __construct(MessageProviderInterface $messages) {
 		
 		parent::__construct($messages);
+
+		$this->beforeFilter('auth.permission');
 		
 		$this->setViewPath('user-manager::groups');
 	}

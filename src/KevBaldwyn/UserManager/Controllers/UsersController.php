@@ -1,6 +1,6 @@
 <?php namespace KevBaldwyn\UserManager\Controllers;
 
-use Config, View, Request, Redirect, Input, Auth, Validator;
+use Config, View, Request, Redirect, Input, Auth, Validator, Acl;
 use KevBaldwyn\Avid\Model;
 use Illuminate\Support\Contracts\MessageProviderInterface;
 use Illuminate\Database\Eloquent\Collection;
@@ -11,6 +11,8 @@ class UsersController extends \KevBaldwyn\Avid\Controller {
 	public function __construct(MessageProviderInterface $messages) {
 		
 		parent::__construct($messages);
+
+		$this->beforeFilter('auth.permission');
 		
 		$this->setViewPath('user-manager::users');
 	}
@@ -31,7 +33,9 @@ class UsersController extends \KevBaldwyn\Avid\Controller {
 	
 
 	public function create() {
-		
+
+		//\Debugger::pa(\App::make('route')->getCurrentRoute(), true);
+		//\Debugger::pa(\Route::getCurrentRoute()->getPath(), true);
 		$model = static::model();
 		
 		return View::make($this->viewPath . '.create', array('model' => $model,

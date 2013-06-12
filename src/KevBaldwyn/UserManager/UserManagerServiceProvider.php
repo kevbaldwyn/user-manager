@@ -1,6 +1,8 @@
 <?php namespace KevBaldwyn\UserManager;
 
+use Auth;
 use Illuminate\Support\ServiceProvider;
+use KevBaldwyn\UserManager\Acl;
 
 class UserManagerServiceProvider extends ServiceProvider {
 
@@ -24,7 +26,13 @@ class UserManagerServiceProvider extends ServiceProvider {
 		\Group::observe(new Observers\PermissionsObserver);
 
 		include(__DIR__.'/routes.php');
+		include(__DIR__.'/filters.php');
 
+		$app = $this->app;
+		$this->app->bind('user-manager.acl', function() use ($app) {
+			$user = (!is_null(Auth::getUser())) ? Auth::getUser() : new \User();
+			return new Acl($user, $app['router']);
+		});
 	}
 
 	/**
@@ -34,7 +42,6 @@ class UserManagerServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-
 	}
 
 	/**
