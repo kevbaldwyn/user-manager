@@ -1,6 +1,6 @@
 @extends('users.login')
 
-@section('form')
+@section('user-manager.content')
 	
 	@include('user-manager::fragments.login')
 

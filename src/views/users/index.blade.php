@@ -2,7 +2,7 @@
 
 @include('user-manager::fragments.navigation')
 
-@section('list_html')
+@section('user-manager.content')
 
 <h3>Current Users</h3>
 

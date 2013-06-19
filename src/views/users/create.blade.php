@@ -2,7 +2,7 @@
 
 @include('user-manager::fragments.navigation')
 
-@section('form')
+@section('user-manager.content')
 
 <p>And this is the content from the user-manager package</p>
 

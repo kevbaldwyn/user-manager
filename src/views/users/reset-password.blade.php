@@ -1,6 +1,6 @@
 @extends('users.reset-password')
 
-@section('form')
+@section('user-manager.content')
 	
 	@if($reset)
 

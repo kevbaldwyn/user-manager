@@ -1,4 +1,4 @@
-@section('admin.nav')
+@section('user-manager.nav')
 	<ul>
 		<li>Groups
 			<ul>
