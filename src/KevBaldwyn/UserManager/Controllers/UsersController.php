@@ -34,8 +34,6 @@ class UsersController extends \KevBaldwyn\Avid\Controller {
 
 	public function create() {
 
-		//\Debugger::pa(\App::make('route')->getCurrentRoute(), true);
-		//\Debugger::pa(\Route::getCurrentRoute()->getPath(), true);
 		$model = static::model();
 		
 		return View::make($this->viewPath . '.create', array('model' => $model,

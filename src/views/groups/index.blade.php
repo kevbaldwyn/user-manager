@@ -1,5 +1,7 @@
 @extends($model->getScaffoldRoute('index'))
 
+@include('user-manager::fragments.navigation')
+
 @section('list_html')
 
 <h3>Current Groups</h3>

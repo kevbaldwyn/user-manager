@@ -2,9 +2,9 @@
 
 /*
 Acl::hasAccess(); // current user, current request
-Acl::requesting($route)->hasAccess(); // current user, specific request
-Acl::user($user)->requesting($route)->hasAccess(); // specific user, specific request
-Acl::user($user)->hasAccess(); // specific user, current request
+Acl::requesting($route)->hasAccess(); // current user, specific request - not tested
+Acl::user($user)->requesting($route)->hasAccess(); // specific user, specific request - not tested
+Acl::user($user)->hasAccess(); // specific user, current request - not tested
 */
 
 use Config, Auth, Redirect;
