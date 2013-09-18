@@ -42,6 +42,12 @@ class UserManagerServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
+		
+		$this->app['command.kevbaldwyn:create-user'] = $this->app->share(function($app) {
+			return new Commands\CreateUserCommand($app);
+		});
+				
+		$this->commands('command.kevbaldwyn:create-user');
 	}
 
 	/**
