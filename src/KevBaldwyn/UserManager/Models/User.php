@@ -71,9 +71,9 @@ class User extends \KevBaldwyn\SentryAuth\Models\User {
 			}else{
 				$from = Config::get('user-manager::mail.from');
 			}
-
+			
 		    $message->from($from['address'], $from['name']);
-		    $message->to($this->email)->subject(Config::get('user-manager::mail.subject.activaton'));
+		    $message->to($this->email)->subject(Config::get('user-manager::mail.subject.activate'));
 
 		});
 
