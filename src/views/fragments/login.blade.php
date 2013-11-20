@@ -1,4 +1,4 @@
-{{ Form::open(['method' => 'post', 'route' => 'login'], ['class' => 'form-horizontal']) }}
+{{ Form::open(['method' => 'post', 'route' => 'login', 'class' => 'form-horizontal']) }}
 
 	{{ Form::token() }}
 
