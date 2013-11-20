@@ -23,8 +23,10 @@
 		 	<label class="checkbox">
         		{{ Form::checkbox('remeber', '1', Input::get('remember')) }} Remember me
       		</label>
-			{{ Form::submit('Login', ['class' => 'btn btn-default']) }}
 		</div>
+	</div>
+	<div class="control-group">
+			{{ Form::submit('Login', ['class' => 'btn btn-default']) }}
 	</div>
 
 {{ Form::close() }}
