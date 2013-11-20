@@ -1,4 +1,4 @@
-{{ Form::open(['method' => 'post', 'route' => 'users.reset-password'], ['class' => 'form-horizontal']) }}
+{{ Form::open(['method' => 'post', 'route' => 'users.reset-password', 'class' => 'form-horizontal']) }}
 
 	{{ Form::token() }}
 	{{ Form::hidden('token', Input::get('token')) }}
@@ -18,9 +18,7 @@
 	</div>
 
 	<div class="control-group">
-		 <div class="controls">
 			{{ Form::submit('Reset', ['class' => 'btn btn-default']) }}
-		</div>
 	</div>
 
 {{ Form::close() }}
