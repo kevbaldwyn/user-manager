@@ -6,20 +6,20 @@
 	<div class="control-group">
 		{{ Form::label('email', 'Email address', ['class' => 'control-label']) }}
 		<div class="controls">
-			{{ Form::text('email', Input::get('email')) }}
+			{{ Form::text('email', Input::get('email'), ['class' => 'form-control']) }}
 		</div>
 	</div>
 
 	<div class="control-group">
 		{{ Form::label('password', 'New Password', ['class' => 'control-label']) }}
 		<div class="controls">
-			{{ Form::password('password') }}
+			{{ Form::password('password', ['class' => 'form-control']) }}
 		</div>
 	</div>
 
 	<div class="control-group">
 		 <div class="controls">
-			{{ Form::submit('Reset', ['class' => 'btn']) }}
+			{{ Form::submit('Reset', ['class' => 'btn btn-default']) }}
 		</div>
 	</div>
 

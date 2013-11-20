@@ -5,7 +5,7 @@
 	<div class="control-group {{ Form::errorCSS('email') }}">
 		{{ Form::label('email', 'Email address', ['class' => 'control-label']) }}
 		<div class="controls">
-			{{ Form::text('email', Input::get('email')) }}
+			{{ Form::text('email', Input::get('email'), ['class' => 'form-control']) }}
 			{{ Form::error('email') }}
 		</div>
 	</div>
@@ -13,7 +13,7 @@
 	<div class="control-group {{ Form::errorCSS('password') }}">
 		{{ Form::label('password', 'Password', ['class' => 'control-label']) }}
 		<div class="controls">
-			{{ Form::password('password') }}
+			{{ Form::password('password', ['class' => 'form-control']) }}
 			{{ Form::error('password') }}
 		</div>
 	</div>
@@ -23,7 +23,7 @@
 		 	<label class="checkbox">
         		{{ Form::checkbox('remeber', '1', Input::get('remember')) }} Remember me
       		</label>
-			{{ Form::submit('Login', ['class' => 'btn']) }}
+			{{ Form::submit('Login', ['class' => 'btn btn-default']) }}
 		</div>
 	</div>
 
