@@ -1,8 +1,6 @@
 @extends($model->getScaffoldRoute('create'))
 
-
 @include('user-manager::fragments.navigation')
-
 
 @section('user-manager.content')
 

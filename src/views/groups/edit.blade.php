@@ -1,6 +1,8 @@
 @extends($model->getScaffoldRoute('edit'))
 
-@section('form')
+@include('user-manager::fragments.navigation')
+
+@section('user-manager.content')
 
 <p>And this is the content from the user-manager package</p>
 

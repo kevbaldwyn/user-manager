@@ -1,6 +1,8 @@
 <?php namespace KevBaldwyn\UserManager;
 
+use Auth;
 use Illuminate\Support\ServiceProvider;
+use KevBaldwyn\UserManager\Acl;
 
 class UserManagerServiceProvider extends ServiceProvider {
 
@@ -19,11 +21,18 @@ class UserManagerServiceProvider extends ServiceProvider {
 	public function boot()
 	{
 		$this->package('kevbaldwyn/user-manager');
-		
-		$this->registerModelEvents();
+
+		\User::observe(new Observers\PermissionsObserver);
+		\Group::observe(new Observers\PermissionsObserver);
 
 		include(__DIR__.'/routes.php');
+		include(__DIR__.'/filters.php');
 
+		$app = $this->app;
+		$this->app->bind('user-manager.acl', function() use ($app) {
+			$user = (!is_null(Auth::getUser())) ? Auth::getUser() : new \User();
+			return new Acl($user, $app['router']);
+		});
 	}
 
 	/**
@@ -33,7 +42,12 @@ class UserManagerServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-
+		
+		$this->app['command.kevbaldwyn:create-user'] = $this->app->share(function($app) {
+			return new Commands\CreateUserCommand($app);
+		});
+				
+		$this->commands('command.kevbaldwyn:create-user');
 	}
 
 	/**
@@ -44,36 +58,6 @@ class UserManagerServiceProvider extends ServiceProvider {
 	public function provides()
 	{
 		return array();
-	}
-
-
-	private function registerModelEvents() {
-		
-		// create a saving event for whatever the group model class is
-		$model = '\\' . \Config::get('cartalyst/sentry::groups.model');
-		$model::saving(function($group) {
-
-			// only try and update the permissions if it has been specified
-			if($group->permissions_array_expected) {
-				$perms = array();
-				if(is_array($group->permissions_array)) {
-					foreach($group->permissions_array as $key => $value) {
-						$k = str_replace(':', '.', $key);
-						$perms[$k] = $value;
-					}
-					unset($group->permissions_array);
-				}
-
-				// unset everything before specifying new permissions
-				unset($group->permissions_array_expected);
-				unset($group->permissions);
-
-				$group->permissions = $perms;
-
-			}
-			
-		});
-
 	}
 
 }

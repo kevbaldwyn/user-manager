@@ -2,6 +2,7 @@
 
 use Config;
 use Form;
+use Input;
 
 class HtmlHelper {
 
@@ -10,6 +11,15 @@ class HtmlHelper {
 		// check which are in the supplied list and build a list of form elements
 		function recurse($arrayLevel, $perms, $passedRootKey = '') {
 			$str = '';
+			$oldInput = Input::old();
+			if(array_key_exists('permissions_array', $oldInput)) {
+				$oldPerms = $oldInput['permissions_array'];
+				foreach($oldPerms as $key => $val) {
+					$k = str_replace(':', '.', $key);
+					$perms[$k] = $val;
+				}
+			}
+
 			foreach($arrayLevel as $key => $var) {
 
 				if(is_array($var)) {
